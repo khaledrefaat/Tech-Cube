@@ -18,8 +18,8 @@ const Header = () => {
             </a>
           </Link>
           <div className="relative cursor-pointer">
-            <ShoppingBagIcon className="h-9" />
-            <div className="h-6 w-6 absolute -top-1 -right-2 bg-red-500 rounded-full text-white flex justify-center items-center">
+            <ShoppingBagIcon className="h-8" />
+            <div className="h-5 w-5 absolute -top-1 -right-2 bg-red-500 rounded-full text-white flex justify-center items-center">
               1
             </div>
           </div>

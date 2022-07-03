@@ -1,7 +1,13 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
+import { client } from '../lib/sanity';
 
-const Home: NextPage = () => {
+interface HomeProps {
+  products: any;
+  banners: any;
+}
+
+const Home: NextPage<HomeProps> = ({ banners, products }) => {
   return (
     <>
       <Head>
@@ -19,3 +25,26 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getStaticProps: GetStaticProps = async ctx => {
+  const productQuery = `*[_type == "product"]`;
+  const bannerQuery = `*[_type == "banner"]`;
+
+  let products, banners;
+  try {
+    products = await client.fetch(productQuery);
+    banners = await client.fetch(bannerQuery);
+  } catch (err) {
+    console.log(err);
+  }
+
+  if (banners && products) {
+    return {
+      props: { banners, products },
+    };
+  }
+
+  return {
+    notFound: true,
+  };
+};
